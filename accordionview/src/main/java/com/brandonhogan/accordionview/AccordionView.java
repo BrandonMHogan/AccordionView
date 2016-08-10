@@ -27,46 +27,41 @@ public class AccordionView extends FrameLayout implements Animation.AnimationLis
     private RelativeLayout titleSectionLayout;
     private TextView titleView;
     private ImageView expandIcon;
-    private boolean isExpanded;
-    private boolean hasBeenClicked = false;
+
     private int animationDuration = ANIMATION_DURATION;
     private ColorStateList originalTitleColor;
-    private int highlightBackgroundColor;
-    private int highlightTextColor;
+    private int titleBackgroundHighlight;
+    private int titleColorHighlight;
     private int height;
 
 
     // Constructors
 
+    public AccordionView(Context context) {
+        this(context, null);
+    }
+
     public AccordionView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        customProperties(context, attrs, 0);
-        initControl();
+        this(context, attrs, 0);
     }
 
     public AccordionView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        customProperties(context, attrs, defStyleAttr);
-        initControl();
-    }
-
-    public AccordionView(Context context) {
-        super(context);
-        initControl();
+        initControl(attrs);
     }
 
 
     // Private Functions
 
-    private void customProperties(Context context, AttributeSet attrs, int defStyleAttr) {
-//        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AccordionView, defStyleAttr, 0);
-//
-//        highlightBackgroundColor = a.getInt(R.styleable.AccordionView_title_highlight_background, 0);
-//        highlightTextColor = a.getInt(R.styleable.AccordionView_title_highlight_font_color, 0);
+    private void initControl(AttributeSet attrs) {
 
-    }
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AccordionView);
 
-    private void initControl() {
+        if (typedArray != null) {
+            titleBackgroundHighlight = typedArray.getColor(R.styleable.AccordionView_titleBackgroundHighlight, 0);
+            titleColorHighlight = typedArray.getInt(R.styleable.AccordionView_titleColorHighlight, 0);
+        }
+
         inflate(getContext(), R.layout.accordion_view, this);
 
         titleSectionLayout = (RelativeLayout) findViewById(R.id.title_section);
@@ -94,13 +89,16 @@ public class AccordionView extends FrameLayout implements Animation.AnimationLis
     }
 
     private void setHighlight(boolean isHighlighted) {
+        if(titleBackgroundHighlight == 0 && titleColorHighlight == 0)
+            return;
+
         if (isHighlighted) {
 
-            if(highlightBackgroundColor > 0)
-                titleSectionLayout.setBackgroundColor(getResources().getColor(highlightBackgroundColor));
+            if(titleBackgroundHighlight > 0)
+                titleSectionLayout.setBackgroundColor(getResources().getColor(titleBackgroundHighlight));
 
-            if (highlightTextColor > 0)
-                titleView.setTextColor(getResources().getColor(highlightTextColor));
+            if (titleColorHighlight > 0)
+                titleView.setTextColor(getResources().getColor(titleColorHighlight));
         }
         else {
             titleSectionLayout.setBackgroundColor(0x00000000);

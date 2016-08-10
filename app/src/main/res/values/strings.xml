@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AccordionView-Master</string>
+
+
+    <string name="accordion_one_title">Click me!</string>
+    <string name="accordion_one_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Proin efficitur dui vel ipsum maximus efficitur. Etiam hendrerit tellus in tellus luctus,
+        eu luctus magna facilisis. Morbi et mi dictum, semper velit sed, lobortis nisl. Curabitur
+        urna sem, mattis et volutpat id, semper non dui. Maecenas aliquet porttitor risus, at
+        dignissim odio ornare vitae. Donec bibendum odio quis nisl imperdiet, sed rutrum neque
+        consectetur. Praesent in tristique dolor. Donec id rhoncus neque. </string>
 </resources>
