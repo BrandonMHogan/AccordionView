@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AccordionView">
+        <attr name="titleBackgroundHighlight" format="color|reference"></attr>
+        <attr name="titleColorHighlight" format="color|reference"></attr>
+    </declare-styleable>
+
+</resources>
