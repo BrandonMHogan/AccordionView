@@ -11,6 +11,7 @@ import com.brandonhogan.accordionview.AccordionView;
 public class MainActivity extends AppCompatActivity {
 
     private AccordionView accordionViewOne;
+    private AccordionView accordionViewTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +19,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         accordionViewOne = (AccordionView) findViewById(R.id.accordion_one);
+        accordionViewTwo = (AccordionView) findViewById(R.id.accordion_two);
 
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-        setupAccordionOne(inflater);
+        setupAccordionOne();
+        setupAccordionTwo();
     }
 
 
-    private void setupAccordionOne(LayoutInflater inflater ) {
+    private void setupAccordionOne() {
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+
         accordionViewOne.setTitle(getResources().getString(R.string.accordion_one_title));
 
         View areaView = inflater.inflate(R.layout.accordion_content_one, accordionViewOne, false);
@@ -32,12 +36,15 @@ public class MainActivity extends AppCompatActivity {
         TextView builderName = (TextView) areaView.findViewById(R.id.text_view_one);
         builderName.setText(getResources().getString(R.string.accordion_one_content));
 
-//        TextView builderName2 = (TextView) areaView.findViewById(R.id.text_view_two);
-//        builderName2.setText(getResources().getString(R.string.accordion_one_content));
-//
-//        TextView builderName3 = (TextView) areaView.findViewById(R.id.text_view_three);
-//        builderName3.setText(getResources().getString(R.string.accordion_one_content));
-
         accordionViewOne.addContentView(areaView);
+    }
+
+    private void setupAccordionTwo() {
+        accordionViewTwo.setTitle(getResources().getString(R.string.accordion_two_title));
+
+        TextView contentTwo = new TextView(getApplicationContext());
+        contentTwo.setText(getResources().getString(R.string.accordion_two_content));
+
+        accordionViewTwo.addContentView(contentTwo);
     }
 }

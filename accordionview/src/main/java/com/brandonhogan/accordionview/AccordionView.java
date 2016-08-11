@@ -23,15 +23,14 @@ public class AccordionView extends FrameLayout implements Animation.AnimationLis
     // Private Properties
 
     private LinearLayout expandableSection;
-    private FrameLayout container;
     private RelativeLayout titleSectionLayout;
     private TextView titleView;
     private ImageView expandIcon;
 
     private int animationDuration = ANIMATION_DURATION;
     private ColorStateList originalTitleColor;
-    private int titleBackgroundHighlight;
-    private int titleColorHighlight;
+    private ColorStateList titleBackgroundHighlight;
+    private ColorStateList titleColorHighlight;
     private int height;
 
 
@@ -58,8 +57,8 @@ public class AccordionView extends FrameLayout implements Animation.AnimationLis
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.AccordionView);
 
         if (typedArray != null) {
-            titleBackgroundHighlight = typedArray.getColor(R.styleable.AccordionView_titleBackgroundHighlight, 0);
-            titleColorHighlight = typedArray.getInt(R.styleable.AccordionView_titleColorHighlight, 0);
+            titleBackgroundHighlight = typedArray.getColorStateList(R.styleable.AccordionView_titleBackgroundHighlight);
+            titleColorHighlight = typedArray.getColorStateList(R.styleable.AccordionView_titleColorHighlight);
         }
 
         inflate(getContext(), R.layout.accordion_view, this);
@@ -86,19 +85,18 @@ public class AccordionView extends FrameLayout implements Animation.AnimationLis
                 });
 
         setOnClick();
+        typedArray.recycle();
     }
 
     private void setHighlight(boolean isHighlighted) {
-        if(titleBackgroundHighlight == 0 && titleColorHighlight == 0)
-            return;
 
         if (isHighlighted) {
 
-            if(titleBackgroundHighlight > 0)
-                titleSectionLayout.setBackgroundColor(getResources().getColor(titleBackgroundHighlight));
+            if(titleBackgroundHighlight != null)
+                titleSectionLayout.setBackgroundColor(titleBackgroundHighlight.getDefaultColor());
 
-            if (titleColorHighlight > 0)
-                titleView.setTextColor(getResources().getColor(titleColorHighlight));
+            if (titleColorHighlight != null)
+                titleView.setTextColor(titleColorHighlight);
         }
         else {
             titleSectionLayout.setBackgroundColor(0x00000000);
@@ -129,18 +127,19 @@ public class AccordionView extends FrameLayout implements Animation.AnimationLis
     public void toggle(){
 
         if(expandableSection.getVisibility() == View.VISIBLE){
-            AccordionAnimation a = new AccordionAnimation(expandableSection, animationDuration, AccordionAnimation.COLLAPSE);
-            height = a.getHeight();
-            a.setAnimationListener(this);
-            expandableSection.startAnimation(a);
+            AccordionAnimation animation =
+                    new AccordionAnimation(expandableSection, animationDuration, AccordionAnimation.COLLAPSE);
+            height = animation.getHeight();
+            animation.setAnimationListener(this);
+            expandableSection.startAnimation(animation);
             expandIcon.animate().rotation(180).setDuration(animationDuration).start();
             setHighlight(false);
         }else{
-            AccordionAnimation a = new AccordionAnimation(expandableSection, animationDuration, AccordionAnimation.EXPAND);
-            a.setHeight(height);
-            a.setAnimationListener(this);
+            AccordionAnimation animation = new AccordionAnimation(expandableSection, animationDuration, AccordionAnimation.EXPAND);
+            animation.setHeight(height);
+            animation.setAnimationListener(this);
             expandableSection.requestLayout();
-            expandableSection.startAnimation(a);
+            expandableSection.startAnimation(animation);
             expandIcon.animate().rotation(0).setDuration(animationDuration).start();
             setHighlight(true);
         }

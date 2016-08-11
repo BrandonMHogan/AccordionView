@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.brandonhogan.accordionview'
     PUBLISH_ARTIFACT_ID = 'accordionview'
-    PUBLISH_VERSION = '0.1.0'
+    PUBLISH_VERSION = '0.1.1'
 }
 
 android {
@@ -11,10 +11,10 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.1"
     }
     buildTypes {
         release {
@@ -22,12 +22,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
