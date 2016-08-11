@@ -1,14 +1,12 @@
 apply plugin: 'com.android.library'
-
 ext {
     PUBLISH_GROUP_ID = 'com.brandonhogan.accordionview'
     PUBLISH_ARTIFACT_ID = 'accordionview'
     PUBLISH_VERSION = '0.1.1'
 }
-
 android {
     compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '24.0.1'
 
     defaultConfig {
         minSdkVersion 16
@@ -22,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
-
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+
+dependencies {
+}
